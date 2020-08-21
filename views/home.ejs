@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- go to line 50 -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseTree</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Francois+One&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <% if (!logged) { %>
+        <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">CourseTree</a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarmenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarmenu">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a href="/register" class="link">Sign up</a></li>
+                        <li class="nav-item"><a href="/login" class="link">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            </div>
+        </nav>
+    <% } %> 
+    <% if (logged) { %>
+        <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">CourseTree</a>
+                    <div class="dropdown">
+                        <a class="btn btn-danger dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <%= user.username %>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="/my_courses">My Courses</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    <% } %>
+
+    <div class="container">
+        <div class="jumbotron">
+            <% if( success != '') { %>
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><%= success %></strong>
+                </div>
+            <% } %>
+            <% if( success_msg != '') { %>
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><%= success_msg %></strong>
+                </div>
+            <% } %>
+            <h1>A Library of Courses around the Web!</h1>
+            <!-- fix this -->
+            <form id="courseForm" action="/" method="POST">
+                <select name="coursename" class="custom-select" id="inputGroupSelect04"
+                    aria-label="Example select with button addon">
+                    <option value="Angular">Angular</option>
+                    <option value="Android Developement">Android Developement</option>
+                    <option value="C Language">C Language</option>
+                    <option value="C++">C++</option>
+                    <option value="django">django</option>
+                    <option value="express">express</option>
+                    <option value="flask">flask</option>
+                    <option value="Flutter">Flutter</option>
+                    <option value="Java">Java</option>
+                    <option value="Kotlin">Kotlin</option>
+                    <option value="Laravel">Laravel</option>
+                    <option value="MERN Stack">MERN Stack</option>
+                    <option value="MEAN Stack">MEAN Stack</option>
+                    <option value="MongoDB">MongoDB</option>
+                    <option value="MySQL">MySQL</option>
+                    <option value="NodeJS">NodeJS</option>
+                    <option value="Objective-C">Objective-C</option>
+                    <option value="Python">Python</option>
+                    <option value="PHP">PHP</option>
+                    <option value="React">React</option>
+                    <option value="Web Developement">Web Developement</option>
+                </select>
+                <button class="btn btn-outline-danger mt-2" type="submit">Search!</button>
+            </form>
+        </div>
+        <h2 class="popular"> <span>Popular Courses</span> </h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="card col-lg-4 col-md-6">
+                <a class="courseLink" href="/NodeJS">
+                    <img src="./static/images/nodejs.png" class="card-img-top" alt="Nodejs">
+                </a>
+                <div class="card-body">
+                    <a class="courseLink" href="/NodeJS">
+                        <h3 class="card-text">NodeJs-The backend Solution</h1>
+                    </a>
+                </div>
+            </div>
+            <div class="card col-lg-4 col-md-6">
+                <a class="courseLink" href="/express">
+                    <img src="./static/images/express.png" class="card-img-top" alt="Express">
+                </a>
+                <div class="card-body">
+                    <a class="courseLink" href="/express">
+                        <h3 class="card-text">Express-Nodejs Framework</h1>
+                    </a>
+                </div>
+            </div>
+            <div class="card col-lg-4 col-md-6">
+                <a class="courseLink" href="/django">
+                    <img src="./static/images/django.png" class="card-img-top" alt="django">
+                </a>
+                <div class="card-body">
+                    <a class="courseLink" href="/django">
+                        <h3 class="card-text">django-Backend in python</h1>
+                    </a>
+                </div>
+            </div>
+            <div class="card col-lg-4 col-md-6">
+                <a class="courseLink" href="/Flutter">
+                    <img src="./static/images/flutter.png" class="card-img-top" alt="flutter">
+                </a>
+                <div class="card-body">
+                    <a class="courseLink" href="/Flutter">
+                        <h3 class="card-text">Flutter-Native ios and android apps</h1>
+                    </a>
+                </div>
+            </div>
+            <div class="card col-lg-4 col-md-6">
+                <a class="courseLink" href="/Python">
+                    <img src="./static/images/python.png" class="card-img-top" alt="python">
+                </a>
+                <div class="card-body">
+                    <a class="courseLink" href="/Python">
+                        <h3 class="card-text">Python Programming Language</h1>
+                    </a>
+                </div>
+            </div>
+            <div class="card col-lg-4 col-md-6">
+                <a class="courseLink" href="/PHP">
+                    <img src="./static/images/php.png" class="card-img-top" alt="php">
+                </a>
+                <div class="card-body">
+                    <a class="courseLink" href="/PHP">
+                        <h3 class=" card-text">Web developement with php</h1>
+                    </a>
+                </div>
+            </div>
+            <div class="card col-lg-4 col-md-6">
+                <a class="courseLink" href="/Angular">
+                    <img src=" ./static/images/angular.png" class="card-img-top" alt="Angular" style="width: 70%;">
+                </a>
+                <div class="card-body">
+                    <a class="courseLink" href="/Angular">
+                        <h3 class="card-text">Angular-JavaScript frontend web framework</h1>
+                    </a>
+                </div>
+            </div>
+            <div class="card col-lg-4 col-md-6">
+                <a class="courseLink" href="/Java">
+                    <img src=" ./static/images/java.png" class="card-img-top" alt="java">
+                </a>
+                <div class="card-body">
+                    <a class="courseLink" href="/Java">
+                        <h3 class=" card-text">Java programming language</h1>
+                    </a>
+                </div>
+            </div>
+            <div class="card col-lg-4 col-md-6">
+                <a class="courseLink" href="/React">
+                    <img src="./static/images/react.png" class="card-img-top" alt="React">
+                </a>
+                <div class="card-body">
+                    <a class="courseLink" href="/React">
+                        <h3 class="card-text">React-A JavaScript library for building user interfaces</h1>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+
+        <h2 class="popular"> <span>Meet the Team</span> </h2>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="card team-card">
+                    <div class="card-body">
+                        <img src="./static/images/itachi.jpeg" class="img-fluid rounded-circle w-50 mb-3">
+                        <h3>Hiren Bhal</h3>
+                        <h5>Web Developer</h5>
+                        <div class="d-flex flex-row justify-content-center">
+                            <div class="p-4">
+                                <a href="https://www.facebook.com/hiren.bhal007" target="_blank" rel="noopener noreferrer"
+                                style="color: black;"><i class="fb fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="p-4">
+                                <a href="https://github.com/hirenbhal" target="_blank" rel="noopener noreferrer"
+                                style="color: black;"><i class="git fa fa-github fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="p-4">
+                                <a href="https://www.instagram.com/hiren.exe/" target="_blank" rel="noopener noreferrer"
+                                style="color: black;"><i class="insta fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="card team-card">
+                    <div class="card-body">
+                        <img src="./static/images/kira.jpeg" class="img-fluid rounded-circle w-50 mb-3">
+                        <h3>Mahaveer Soni</h3>
+                        <h5>Web Developer</h5>
+                        <div class="d-flex flex-row justify-content-center">
+                            <div class="p-4">
+                                <a href="" target="_blank" rel="noopener noreferrer" style="color: black;"><i
+                                    class="fb fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="p-4">
+                                <a href="https://github.com/Mahaveer1141" target="_blank" rel="noopener noreferrer"
+                        style="color: black;"><i class="git fa fa-github fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="p-4">
+                                <a href="https://www.instagram.com/mahaveersoni11/" target="_blank" rel="noopener noreferrer"
+                        style="color: black;"><i class="insta fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid bg-dark my-0 py-3 text-light">
+        <p class="mb-0 text-center">© 2020-2021 CourseTree</p>
+        <p class="mb-0 text-center">
+            <a href="#" style="color:white; text-decoration: none;">Back to top</a>
+        </p>
+    </footer>
+
+
+
+
+</body>
+
+</html>

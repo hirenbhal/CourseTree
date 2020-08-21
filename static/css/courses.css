@@ -1,0 +1,33 @@
+.jumbotron{
+    margin-top: 80px;
+    text-align: left;
+}
+
+.card-title{
+    text-align: left;
+    margin: 8px 0 2px 17px;
+}
+
+.card-body{
+    text-align: left;
+    padding-right: 10px;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.level{
+    color: rgb(175, 174, 174);
+    margin: 0;
+    padding: 2px 0 0 20px;
+    display: flex;
+}
+
+i {
+    color: rgb(99, 99, 99);
+}
+i:hover{
+    color: #dc3545;
+}
+.selectCourse{
+    color: #dc3545;
+}

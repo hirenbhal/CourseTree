@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Francois+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/courses.css">
+</head>
+
+<body>
+    <% if (!logged) { %>
+        <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">CourseTree</a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarmenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarmenu">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a href="/register" class="link">Sign up</a></li>
+                        <li class="nav-item"><a href="/login" class="link">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            </div>
+        </nav>
+    <% } %> 
+    <% if (logged) { %>
+        <nav class="navbar navbar-expand-sm fixed-top navbar-light bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">CourseTree</a>
+                    <div class="dropdown">
+                        <a class="btn btn-danger dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <%= user.username %>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="/my_courses">My Courses</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    <% } %>
+    
+    <div class="container">
+        <div class="jumbotron">
+            <% if(success_msg != ''){ %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <%= success_msg %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <% } %><% if(error_msg != ''){ %>
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <%= error_msg %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+            <h1>Search result for <span id="courseName"><%= courseName %></span></h1>
+        </div>
+    </div>
+    <div class="container">
+
+        <% if (params) { %>
+            <% if (params.Udemy) { %>
+                <% for(var i=0; i < params.Udemy.length; i++) { %>
+                <div class="card card-course">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="courseLink" href="<%= params.Udemy[i].link %>">
+                                <img src="../static/images/udemy.png" alt="" class="img-fluid"
+                                    style="border: 2px solid rgb(212, 212, 212);">
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <a class="courseLink" href="<%= params.Udemy[i].link %>">
+                                <h3 class="card-title"><%= params.Udemy[i].title %> | <a
+                                        href="/add/<%= params.Udemy[i].id %>"><i class="fa fa-plus plus"
+                                            aria-hidden="true"></i></a></h3>
+                            </a>
+                            <p class="card-body level"><%= params.Udemy[i].author %> </p>
+                            <p class="card-body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas amet, quod
+                                recusandae quidem similique dolore debitis.</p>
+                            <p class="card-body level">Beginner | <%= params.Udemy[i].paid %> </p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <% } %>
+                <% if (params.Coursera) { %>
+                <% for(var i=0; i < params.Coursera.length; i++) { %>
+                <div class="card card-course">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="courseLink" href="<%= params.Coursera[i].link %>">
+                                <img src="../static/images/coursera.jpg" alt="" class="img-fluid"
+                                    style="border: 2px solid rgb(212, 212, 212);">
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <a class="courseLink" href="<%= params.Coursera[i].link %>">
+                                <h3 class="card-title"><%= params.Coursera[i].title %> | <a
+                                        href="/add/<%= params.Coursera[i].id %>"><i class="fa fa-plus plus"
+                                            aria-hidden="true"></i></a></h3>
+                            </a>
+                            <p class="card-body level"><%= params.Coursera[i].author %> </p>
+                            <p class="card-body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas amet, quod
+                                recusandae quidem similique dolore debitis.</p>
+                            <p class="card-body level">Beginner | <%= params.Coursera[i].paid %> </p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <% } %>
+                <% if (params.Youtube) { %>
+                <% for(var i=0; i < params.Youtube.length; i++) { %>
+                <div class="card card-course">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="courseLink" href="<%= params.Youtube[i].link %>">
+                                <img src="../static/images/youtube.png" alt="" class="img-fluid"
+                                    style="border: 2px solid rgb(212, 212, 212);">
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <a class="courseLink" href="<%= params.Youtube[i].link %>">
+                                <h3 class="card-title"><%= params.Youtube[i].title %> | <a
+                                        href="/add/<%= params.Youtube[i].id %>"><i class="fa fa-plus plus"
+                                            aria-hidden="true"></i></a></h3>
+                            </a>
+                            <p class="card-body level"><%= params.Youtube[i].author %> </p>
+                            <p class="card-body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas amet, quod
+                                recusandae quidem similique dolore debitis.</p>
+                            <p class="card-body level">Beginner | <%= params.Youtube[i].paid %> </p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <% } %>
+        <% } %>
+    </div>
+</body>
+
+</html>
