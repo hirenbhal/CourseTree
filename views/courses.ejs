@@ -91,7 +91,7 @@
                         <div class="col-md-8">
                             <a class="courseLink" href="<%= params.Udemy[i].link %>">
                                 <h3 class="card-title"><%= params.Udemy[i].title %> | <a
-                                        href="/add/<%= params.Udemy[i].id %>"><i class="fa fa-plus plus"
+                                        href="/<%= courseName %>/<%= params.Udemy[i].id %>"><i class="fa fa-plus plus"
                                             aria-hidden="true"></i></a></h3>
                             </a>
                             <p class="card-body level"><%= params.Udemy[i].author %> </p>
@@ -116,7 +116,7 @@
                         <div class="col-md-8">
                             <a class="courseLink" href="<%= params.Coursera[i].link %>">
                                 <h3 class="card-title"><%= params.Coursera[i].title %> | <a
-                                        href="/add/<%= params.Coursera[i].id %>"><i class="fa fa-plus plus"
+                                        href="/<%= courseName %>/<%= params.Coursera[i].id %>"><i class="fa fa-plus plus"
                                             aria-hidden="true"></i></a></h3>
                             </a>
                             <p class="card-body level"><%= params.Coursera[i].author %> </p>
@@ -141,7 +141,7 @@
                         <div class="col-md-8">
                             <a class="courseLink" href="<%= params.Youtube[i].link %>">
                                 <h3 class="card-title"><%= params.Youtube[i].title %> | <a
-                                        href="/add/<%= params.Youtube[i].id %>"><i class="fa fa-plus plus"
+                                        href="/<%= courseName %>/<%= params.Youtube[i].id %>"><i class="fa fa-plus plus"
                                             aria-hidden="true"></i></a></h3>
                             </a>
                             <p class="card-body level"><%= params.Youtube[i].author %> </p>

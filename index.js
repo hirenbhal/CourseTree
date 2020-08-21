@@ -191,14 +191,15 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-app.get('/add/:id', insureAuthenticated, (req, res)=>{
-  let dbl = req.user.Courses
-  let course = coureseList[courseName];
+app.get('/:courseName/:id', insureAuthenticated, (req, res)=>{
+  let dbl = req.user.Courses;
+  let cur_course = req.params.courseName;
+  let course = coureseList[req.params.courseName];
   let some;
   for (let i = 0; i < dbl.length; i++) {
     if (dbl[i].id == parseInt(req.params.id)) {
       req.flash('error_msg', 'This course is already in your Courses')
-      res.redirect('/' + courseName);
+      res.redirect('/' + cur_course);
     }
   }
 
@@ -237,7 +238,7 @@ app.get('/add/:id', insureAuthenticated, (req, res)=>{
           'success_msg',
           'Saved in your courses'
         );
-        res.redirect('/' + courseName);
+        res.redirect('/' + cur_course);
       }).catch(err => console.log(err));
     }
   });
